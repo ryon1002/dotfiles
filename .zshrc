@@ -64,60 +64,12 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # 補完の時に大文字�
 setopt magic_equal_subst # --prefix=/usr などの = 以降も補完
 setopt noautoremoveslash # 最後のスラッシュを自動的に削除しない
 
-# Setting for Pyenv
-export PYENV_ROOT="$HOME/.pyenv" #Pyenv
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-
-## プロンプト設定(後でいじりたい)
-ip=`LANG=C /sbin/ifconfig eno1 | grep 'inet addr' | awk -F: '{print $2}' | awk '{print $1}' | cut -d . -f 4`
-autoload colors
-setopt prompt_subst
-export TERM=xterm-color ## ターミナルの色付け
-colors
-PCRESET="%{${reset_color}%}"
-PCYELLOW="%{${fg[yellow]}%}"
-PCGREEN="%{${fg[green]}%}"
-PCRED="%{${fg[red]}%}"
-PCCYAN="%{${fg[cyan]}%}"
-
-#autoload -Uz vcs_info
-#setopt prompt_subst
-#zstyle ':vcs_info:git:*' check-for-changes true
-#zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
-#zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
-#zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f"
-#zstyle ':vcs_info:*' actionformats '[%b|%a]'
-#precmd () { vcs_info }
-#RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
-#PROMPT="%B%(?.%(!.${PCYELLOW}.${PCGREEN}).${PCRED})$ip : %/ %1(v|${PCCYAN}%1v|)
-#%(?.${PCGREEN}.${PCRED})> ${PCRESET}%b"
-PROMPT="%B%(?.%(!.${PCYELLOW}.${PCGREEN}).${PCRED})%/
-> ${PCRESET}%b"
-PROMPT2="%B%(!.${PCYELLOW}.${PCGREEN})> ${PCRESET}%b"
-SPROMPT="%B%(!.${PCYELLOW}.${PCGREEN})%r is correct? [n,y,a,e]:${PCRESET}%b "
-#RPROMPT="%B${PCRED}%(?..<COMMAND FAILED!!>[%?])${PCRESET}%b "
 
 ## 補完候補の色づけ
 eval `dircolors`
 export ZLS_COLORS=$LS_COLORS
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
-## peco
-#function peco-select-history() {
-#  local tac
-#  if which tac > /dev/null; then
-#    tac="tac"
-#  else
-#    tac="tail -r"
-#  fi
-#  BUFFER=$(\history -n 1 | eval $tac | peco)
-#  CURSOR=$#BUFFER
-#  zle clear-screen
-#}
-#zle -N peco-select-history
-#bindkey '^r' peco-select-history
 bindkey '^r' anyframe-widget-put-history
 
 ## 独自Function
@@ -155,6 +107,36 @@ if [[ -f ~/.zshrc.local ]]; then
     source ~/.zshrc.local
 fi
 
+## プロンプト設定(後でいじりたい)
+ip=`LANG=C /sbin/ifconfig ${NET_IF} | grep 'inet addr' | awk -F: '{print $2}' | awk '{print $1}' | cut -d . -f 4`
+autoload colors
+setopt prompt_subst
+export TERM=xterm-color ## ターミナルの色付け
+colors
+PCRESET="%{${reset_color}%}"
+PCYELLOW="%{${fg[yellow]}%}"
+PCGREEN="%{${fg[green]}%}"
+PCRED="%{${fg[red]}%}"
+PCCYAN="%{${fg[cyan]}%}"
+
+#autoload -Uz vcs_info
+#setopt prompt_subst
+#zstyle ':vcs_info:git:*' check-for-changes true
+#zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
+#zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
+#zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f"
+#zstyle ':vcs_info:*' actionformats '[%b|%a]'
+#precmd () { vcs_info }
+#RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
+#PROMPT="%B%(?.%(!.${PCYELLOW}.${PCGREEN}).${PCRED})$ip : %/ %1(v|${PCCYAN}%1v|)
+#%(?.${PCGREEN}.${PCRED})> ${PCRESET}%b"
+PROMPT="%B%(?.%(!.${PCYELLOW}.${PCGREEN}).${PCRED})%/
+> ${PCRESET}%b"
+PROMPT2="%B%(!.${PCYELLOW}.${PCGREEN})> ${PCRESET}%b"
+SPROMPT="%B%(!.${PCYELLOW}.${PCGREEN})%r is correct? [n,y,a,e]:${PCRESET}%b "
+#RPROMPT="%B${PCRED}%(?..<COMMAND FAILED!!>[%?])${PCRESET}%b "
+
+#zplug
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
     if read -q; then
