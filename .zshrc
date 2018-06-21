@@ -100,7 +100,10 @@ export XDG_CONFIG_HOME=$HOME/.config
 
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-completions"
-zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
+#zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
+zplug "peco/peco", as:command, from:gh-r
+#, of:"*amd64*"
+zplug "b4b4r07/dotfiles", as:command, use:bin/peco-tmux
 zplug "mollifier/anyframe"
 
 if [[ -f ~/.zshrc.local ]]; then
@@ -148,5 +151,5 @@ zplug load
 
 autoload -Uz anyframe-init
 anyframe-init
-zstyle ":anyframe:selector:" use fzf
+zstyle ":anyframe:selector:" use peco
 export FZF_DEFAULT_OPTS='--height 20% --reverse --inline-info --color bg+:239'
