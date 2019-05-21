@@ -153,3 +153,6 @@ autoload -Uz anyframe-init
 anyframe-init
 zstyle ":anyframe:selector:" use peco
 export FZF_DEFAULT_OPTS='--height 20% --reverse --inline-info --color bg+:239'
+
+export BYOBU_CONFIG_DIR="~/.byobu"
+
