@@ -17,6 +17,10 @@ setopt print_eight_bit ## 出力時8ビットを通す(日本語表示用？)
 autoload zmv
 alias zmv='noglob zmv'
 
+# cdr設定
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+
 setopt auto_pushd # ディレクトリ履歴
 setopt pushd_ignore_dups # 重複履歴を登録しない
 setopt extended_glob # 拡張グロブを使う
@@ -71,6 +75,7 @@ export ZLS_COLORS=$LS_COLORS
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 bindkey '^r' anyframe-widget-put-history
+bindkey '^t' anyframe-widget-cdr
 
 ## 独自Function
 #展開
@@ -100,15 +105,34 @@ export XDG_CONFIG_HOME=$HOME/.config
 
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-completions"
+#zplug "zsh-users/zsh-autosuggestions"
 #zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
+
 zplug "peco/peco", as:command, from:gh-r
-#, of:"*amd64*"
 zplug "b4b4r07/dotfiles", as:command, use:bin/peco-tmux
 zplug "mollifier/anyframe"
 
-if [[ -f ~/.zshrc.local ]]; then
-    source ~/.zshrc.local
-fi
+#zplug "b-ryan/powerline-shell"
+#if [[ -f ~/.zshrc.local ]]; then
+#    source ~/.zshrc.local
+#fi
+#
+#function powerline_precmd() {
+#    PS1="$(~/powerline-shell --model compatible $? --shell zsh 2> /dev/null)"
+#}
+#
+#function install_powerline_precmd() {
+#  for s in "${precmd_functions[@]}"; do
+#    if [ "$s" = "powerline_precmd" ]; then
+#      return
+#    fi
+#  done
+#  precmd_functions+=(powerline_precmd)
+#}
+#
+#if [ "$TERM" != "linux" ]; then
+#    install_powerline_precmd
+#fi
 
 ## プロンプト設定(後でいじりたい)
 ip=`LANG=C /sbin/ifconfig ${NET_IF} | grep 'inet addr' | awk -F: '{print $2}' | awk '{print $1}' | cut -d . -f 4`
@@ -154,5 +178,7 @@ anyframe-init
 zstyle ":anyframe:selector:" use peco
 export FZF_DEFAULT_OPTS='--height 20% --reverse --inline-info --color bg+:239'
 
-export BYOBU_CONFIG_DIR="~/.byobu"
+#export BYOBU_CONFIG_DIR="~/.byobu/"
+bindkey '^[[1;5D' backward-word
+bindkey '^[[1;5C' forward-word
 
