@@ -1,0 +1,17 @@
+zplugin ice from"gh-r" as"program"; zplugin load junegunn/fzf-bin
+export FZF_DEFAULT_OPTS='--height 30% --reverse --inline-info --tiebreak=index --color bg+:239'
+#export FZF_DEFAULT_OPTS='--height 30% --reverse --inline-info --no-sort --tiebreak=index --color bg+:239'
+
+zplugin light Tarrasch/zsh-autoenv
+
+zplugin light mollifier/anyframe
+autoload -Uz anyframe-init
+anyframe-init
+#zstyle ":anyframe:selector:" use peco
+zstyle ":anyframe:selector:" use fzf
+bindkey '^r' anyframe-widget-put-history
+bindkey '^t' anyframe-widget-cdr
+
+zplugin ice defer"2" as"command" ; zplugin light zsh-users/zsh-syntax-highlighting
+zplugin light zsh-users/zsh-completions
+

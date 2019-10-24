@@ -1,5 +1,3 @@
-source ~/.zplug/init.zsh
-
 ## 補完機能の強化
 autoload -U compinit
 compinit -u
@@ -51,6 +49,8 @@ bindkey "^o" menu-complete #Ctrl+oでメニュー選択
 bindkey "^q" push-line #Ctrl+qでコマンドラインスタック
 bindkey ";5C" forward-word
 bindkey ";5D" backward-word
+bindkey '^[[1;5D' backward-word #ctrlのワード移動
+bindkey '^[[1;5C' forward-word #ctrlのワード移動
 #bindkey "^r" history-incremental-search-backward #インクリメンタルサーチを消さない
 bindkey "^p" history-beginning-search-backward-end #サーチ機能を消さない
 bindkey "^n" history-beginning-search-forward-end  #同上
@@ -74,93 +74,19 @@ eval `dircolors`
 export ZLS_COLORS=$LS_COLORS
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
-bindkey '^r' anyframe-widget-put-history
-bindkey '^t' anyframe-widget-cdr
-
-## 独自Function
-#展開
-function extract() {
-  case $1 in
-    *.tar) tar xvf $1;;
-    *.tar.gz|*.tgz) tar xzvf $1;;
-    *.zip) unzip $1;;
-    *.tar.bz2|*.tbz) tar xjvf $1;;
-    *.gz) gzip -dc $1;;
-    *.bz2) bzip2 -dc $1;;
-  esac
-}
-
-## エイリアス・コマンド設定
-alias ls='ls --color=auto'
-alias ll='ls -la --color=auto'
-alias la='ls -a --color=auto'
-alias su='su -c ${SHELL}'
-#
-alias -g G='| grep '
-alias -g L='| less '
-alias -g T='| tail -f  '
-alias -s {gz,tgz,zip,bz2,tbz,tar}=extract
-
-export XDG_CONFIG_HOME=$HOME/.config
-
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug "zsh-users/zsh-completions"
-#zplug "zsh-users/zsh-autosuggestions"
-#zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
-
-zplug "peco/peco", as:command, from:gh-r
-zplug "b4b4r07/dotfiles", as:command, use:bin/peco-tmux
-zplug "mollifier/anyframe"
-zplug "Tarrasch/zsh-autoenv"
-if [[ -f ~/.zshrc.local ]]; then
-    source ~/.zshrc.local
-fi
-
-## プロンプト設定(後でいじりたい)
-ip=`LANG=C /sbin/ifconfig ${NET_IF} | grep 'inet addr' | awk -F: '{print $2}' | awk '{print $1}' | cut -d . -f 4`
-autoload colors
-setopt prompt_subst
-export TERM=xterm-color ## ターミナルの色付け
-colors
-PCRESET="%{${reset_color}%}"
-PCYELLOW="%{${fg[yellow]}%}"
-PCGREEN="%{${fg[green]}%}"
-PCRED="%{${fg[red]}%}"
-PCCYAN="%{${fg[cyan]}%}"
-
-#autoload -Uz vcs_info
-#setopt prompt_subst
-#zstyle ':vcs_info:git:*' check-for-changes true
-#zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
-#zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
-#zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f"
-#zstyle ':vcs_info:*' actionformats '[%b|%a]'
-#precmd () { vcs_info }
-#RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
-#PROMPT="%B%(?.%(!.${PCYELLOW}.${PCGREEN}).${PCRED})$ip : %/ %1(v|${PCCYAN}%1v|)
-#%(?.${PCGREEN}.${PCRED})> ${PCRESET}%b"
-PROMPT="%B%(?.%(!.${PCYELLOW}.${PCGREEN}).${PCRED})%/
-> ${PCRESET}%b"
-PROMPT2="%B%(!.${PCYELLOW}.${PCGREEN})> ${PCRESET}%b"
-SPROMPT="%B%(!.${PCYELLOW}.${PCGREEN})%r is correct? [n,y,a,e]:${PCRESET}%b "
-#RPROMPT="%B${PCRED}%(?..<COMMAND FAILED!!>[%?])${PCRESET}%b "
-
-#zplug
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
+## 追加の設定読み込み
+function load_in_zshrc(){
+    if [[ -f $1 ]]; then
+        source $1
     fi
-fi
+}
+load_in_zshrc ~/.zshrc.local
+load_in_zshrc ~/dotfiles/.zsh/.zshrc.prompt
+load_in_zshrc ~/dotfiles/.zsh/.zshrc.command
 
-zplug load
-
-autoload -Uz anyframe-init
-anyframe-init
-zstyle ":anyframe:selector:" use peco
-export FZF_DEFAULT_OPTS='--height 20% --reverse --inline-info --color bg+:239'
-
-#export BYOBU_CONFIG_DIR="~/.byobu/"
-bindkey '^[[1;5D' backward-word
-bindkey '^[[1;5C' forward-word
-
+### Added by Zplugin's installer
+source '/home/nakahashi/.zplugin/bin/zplugin.zsh'
+autoload -Uz _zplugin
+(( ${+_comps} )) && _comps[zplugin]=_zplugin
+### End of Zplugin installer's chunk
+load_in_zshrc ~/dotfiles/.zsh/.zshrc.zplugin
