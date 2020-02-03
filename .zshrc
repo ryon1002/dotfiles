@@ -10,6 +10,7 @@ setopt correct ## スペルチェック
 setopt ignoreeof ## ^D not log out
 setopt NO_flow_control ## Ctrl+S/Ctrl+Q によるフロー制御を使わないようにする
 setopt print_eight_bit ## 出力時8ビットを通す(日本語表示用？)
+stty stop undef #Ctrl+Sを無効化
 
 # zmvを使う
 autoload zmv
@@ -51,10 +52,8 @@ bindkey ";5C" forward-word
 bindkey ";5D" backward-word
 bindkey '^[[1;5D' backward-word #ctrlのワード移動
 bindkey '^[[1;5C' forward-word #ctrlのワード移動
-#bindkey "^r" history-incremental-search-backward #インクリメンタルサーチを消さない
 bindkey "^p" history-beginning-search-backward-end #サーチ機能を消さない
 bindkey "^n" history-beginning-search-forward-end  #同上
-#bindkey "^i" _list-expand-or-complete-word #タブは単語補完にする
 
 ## 補完設定
 unsetopt list_types # 補完候補一覧でファイルの種別をマーク表示しない

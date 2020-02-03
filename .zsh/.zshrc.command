@@ -11,6 +11,14 @@ function extract() {
   esac
 }
 
+xclip-buffer(){
+    print -rn $BUFFER | xclip
+    zle -M "copy to cb: ${BUFFER}"
+}
+ 
+zle -N xclip-buffer
+bindkey '^b' xclip-buffer
+
 ## エイリアス・コマンド設定
 alias ls='ls --color=auto'
 alias ll='ls -la --color=auto'
