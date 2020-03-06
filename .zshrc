@@ -67,6 +67,8 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # 補完の時に大文字�
 setopt magic_equal_subst # --prefix=/usr などの = 以降も補完
 setopt noautoremoveslash # 最後のスラッシュを自動的に削除しない
 
+# Docker Build Kitを使う
+export DOCKER_BUILDKIT=1
 
 ## 補完候補の色づけ
 eval `dircolors`
