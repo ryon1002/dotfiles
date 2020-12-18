@@ -48,13 +48,13 @@ setopt always_to_end # 補完時に単語の後ろまでいく
 bindkey -e
 bindkey "^o" menu-complete #Ctrl+oでメニュー選択
 bindkey "^q" push-line #Ctrl+qでコマンドラインスタック
-bindkey ";5C" forward-word
-bindkey ";5D" backward-word
 bindkey '^[[1;5D' backward-word #ctrlのワード移動
 bindkey '^[[1;5C' forward-word #ctrlのワード移動
 bindkey "^p" history-beginning-search-backward-end #サーチ機能を消さない
 bindkey "^n" history-beginning-search-forward-end  #同上
 
+#bindkey '^[[1;3D' backward-word #ctrlのワード移動
+#bindkey '^[[1;3C' forward-word #ctrlのワード移動
 ## 補完設定
 unsetopt list_types # 補完候補一覧でファイルの種別をマーク表示しない
 unsetopt auto_menu # TAB で順に補完候補を切り替えない
