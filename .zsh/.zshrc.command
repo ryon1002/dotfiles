@@ -11,6 +11,12 @@ function extract() {
   esac
 }
 
+init_python_project(){
+  python3 -m venv venv_$1
+  echo "source ${PWD}/venv_$1/bin/activate" > .autoenv.zsh
+  echo "deactivate" > .autoenv_leave.zsh
+}
+
 xclip-buffer(){
     print -rn $BUFFER | xclip
     zle -M "copy to cb: ${BUFFER}"
