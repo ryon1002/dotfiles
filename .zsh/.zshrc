@@ -67,6 +67,9 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # 補完の時に大文字�
 setopt magic_equal_subst # --prefix=/usr などの = 以降も補完
 setopt noautoremoveslash # 最後のスラッシュを自動的に削除しない
 
+export TERM=xterm-256color
+export XDG_CONFIG_HOME=~/.config
+
 # Docker Build Kitを使う
 export DOCKER_BUILDKIT=1
 
@@ -99,4 +102,8 @@ autoload -Uz _zinit
 ### End of Zinit installer's chunk
 
 load_in_zshrc ~/dotfiles/.zsh/.zshrc.zplugin
+eval "$(direnv hook zsh)"
+source "$HOME/.asdf/asdf.sh"
+#fpath=(${HOME}/.asdf/completions $fpath)
+#autoload -Uz compinit && compinit
 

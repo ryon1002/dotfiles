@@ -12,9 +12,16 @@ function extract() {
 }
 
 init_python_project(){
-  python3 -m venv venv_$1
-  echo "source ${PWD}/venv_$1/bin/activate" > .autoenv.zsh
-  echo "deactivate" > .autoenv_leave.zsh
+  if [ $# -gt 0 ]; then
+    pname=$1
+  else
+    pname=`basename ${PWD}`
+  fi
+  python3 -m venv venv_$pname
+  echo "source ${PWD}/venv_$pname/bin/activate" > .envrc
+  echo "export PYTHONPATH=${PWD}" >> .envrc
+  echo "unset PS1" >> .envrc
+  direnv allow
 }
 
 xclip-buffer(){
