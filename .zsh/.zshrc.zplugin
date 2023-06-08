@@ -1,26 +1,26 @@
 # Interactive filter
-zplugin ice from"gh-r" as"program"; zplugin load junegunn/fzf-bin
+# zinit ice from"gh-r" as"program"; zinit load junegunn/fzf-bin
 export FZF_DEFAULT_OPTS='--height 30% --reverse --inline-info --tiebreak=index --color bg+:239'
 
 # Snippet manager
-zplugin ice from"gh-r" as"program" bpick"*linux_amd64.tar.gz" pick"pet/pet"; zplugin light knqyf263/pet
-function pet-register() {
-  PREV=$(fc -lrn | head -n 1)
-  sh -c "pet new `printf %q "$PREV"`"
-}
-function pet-select() {
-  BUFFER=$(pet search --query "$LBUFFER")
-  CURSOR=$#BUFFER
-  zle redisplay
-}
-zle -N pet-select
-bindkey '^g' pet-select
+#zinit ice from"gh-r" as"program" bpick"*linux_amd64.tar.gz" pick"pet/pet"; zinit light knqyf263/pet
+#function pet-register() {
+#  PREV=$(fc -lrn | head -n 1)
+#  sh -c "pet new `printf %q "$PREV"`"
+#}
+#function pet-select() {
+#  BUFFER=$(pet search --query "$LBUFFER")
+#  CURSOR=$#BUFFER
+#  zle redisplay
+#}
+#zle -N pet-select
+#bindkey '^g' pet-select
 
 # Auto change by entering specific directory
-zplugin light Tarrasch/zsh-autoenv
+#zinit light Tarrasch/zsh-autoenv
 
 # Everything like search wrapper
-zplugin light mollifier/anyframe
+#zinit light mollifier/anyframe
 autoload -Uz anyframe-init
 anyframe-init
 zstyle ":anyframe:selector:" use fzf
@@ -35,6 +35,6 @@ zle -N anyframe-widget-insert-filename-recursive
 bindkey '^f' anyframe-widget-insert-filename-recursive
 
 # Others
-zplugin ice defer"2" as"command" ; zplugin light zsh-users/zsh-syntax-highlighting
-zplugin light zsh-users/zsh-completions
+#zinit ice defer"2" as"command" ; zinit light zsh-users/zsh-syntax-highlighting
+#zinit light zsh-users/zsh-completions
 

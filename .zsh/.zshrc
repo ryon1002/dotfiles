@@ -1,6 +1,5 @@
 ## 補完機能の強化
-autoload -U compinit
-compinit -u
+autoload -Uz compinit
 
 setopt nobeep # ビープを鳴らさない
 setopt auto_cd # ディレクトリ名だけでcd
@@ -69,6 +68,7 @@ setopt noautoremoveslash # 最後のスラッシュを自動的に削除しな�
 
 export TERM=xterm-256color
 export XDG_CONFIG_HOME=~/.config
+export PATH=$HOME/.local/bin:$PATH
 
 # Docker Build Kitを使う
 export DOCKER_BUILDKIT=1
@@ -88,22 +88,15 @@ load_in_zshrc ~/.zshrc.local
 load_in_zshrc ~/dotfiles/.zsh/.zshrc.prompt
 load_in_zshrc ~/dotfiles/.zsh/.zshrc.command
 
-### Added by Zinit's installer
-if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
-    print -P "%F{33}▓ ▒ ░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)… %f"
-    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
-    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
-        print -P "%F{33}▓ ▒ ░ %F{34}Installation successful.%f" || \
-        print -P "%F{160}▓ ▒ ░ The clone has failed.%f"
-fi
-source "$HOME/.zinit/bin/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
-### End of Zinit installer's chunk
 
+eval "$(sheldon source)"
 load_in_zshrc ~/dotfiles/.zsh/.zshrc.zplugin
-eval "$(direnv hook zsh)"
-source "$HOME/.asdf/asdf.sh"
-#fpath=(${HOME}/.asdf/completions $fpath)
-#autoload -Uz compinit && compinit
 
+eval "$(direnv hook zsh)"
+eval "$(~/.local/bin/rtx activate zsh)"
+export RTX_DATA_DIR=$HOME/.rtx
+export RTX_CACHE_DIR=$RTX_DATA_DIR/cache
+
+eval "$(starship init zsh)"
+
+compinit

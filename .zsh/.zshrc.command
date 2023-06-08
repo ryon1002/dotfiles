@@ -19,9 +19,11 @@ init_python_project(){
   fi
   python3 -m venv venv_$pname
   echo "source ${PWD}/venv_$pname/bin/activate" > .envrc
+  # echo "layout python" >> .envrc
   echo "export PYTHONPATH=${PWD}" >> .envrc
   echo "unset PS1" >> .envrc
   direnv allow
+  # ln -s ".direnv/$(basename $VIRTUAL_ENV)/" venv
 }
 
 xclip-buffer(){
@@ -31,6 +33,18 @@ xclip-buffer(){
  
 zle -N xclip-buffer
 bindkey '^b' xclip-buffer
+
+run_on_tmux_panes_h(){
+  if [ $# -gt 0 ]; then
+    command="tmux new-window "`head -n 1 $1`"; "
+    tail -n +2 $1 | while read line
+    do
+      command=${command}"tmux split-window -h "$line"; "
+    done
+    command=${command}"tmux set-window-option synchronize-panes; tmux select-layout even-horizontal"
+    eval $command
+  fi
+}
 
 ## エイリアス・コマンド設定
 alias ls='ls --color=auto'
