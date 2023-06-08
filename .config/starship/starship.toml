@@ -1,0 +1,19 @@
+format = '''$directory$time${custom.dis_no}
+$character'''
+
+[directory]
+truncation_length = 100
+style = "bright-blue"
+
+[time]
+disabled = false
+style = "bright-yellow"
+format = '[\[$time\]]($style) '
+time_format = '%H:%M'
+
+[custom.dis_no]
+command = "LANG=C export | grep 'DISPLAY' | awk -F: '{print $2}'"
+when = true
+format = '[\[$output\]]($style)'
+style = "bright-purple"
+
