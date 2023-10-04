@@ -85,7 +85,7 @@ function load_in_zshrc(){
     fi
 }
 load_in_zshrc ~/.zshrc.local
-load_in_zshrc ~/dotfiles/.zsh/.zshrc.prompt
+#load_in_zshrc ~/dotfiles/.zsh/.zshrc.prompt
 load_in_zshrc ~/dotfiles/.zsh/.zshrc.command
 
 

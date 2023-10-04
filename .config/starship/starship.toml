@@ -1,8 +1,9 @@
-format = '''$directory$time${custom.dis_no}
+format = '''$directory$time$python${custom.dis_no}
 $character'''
 
 [directory]
-truncation_length = 100
+truncation_length = 0
+truncate_to_repo = false
 style = "bright-blue"
 
 [time]
@@ -11,9 +12,13 @@ style = "bright-yellow"
 format = '[\[$time\]]($style) '
 time_format = '%H:%M'
 
+[python]
+format = '[\($virtualenv\)]($style)'
+style = "bright-green"
+
 [custom.dis_no]
 command = "LANG=C export | grep 'DISPLAY' | awk -F: '{print $2}'"
 when = true
-format = '[\[$output\]]($style)'
+format = ' [\[$output\]]($style)'
 style = "bright-purple"
 
