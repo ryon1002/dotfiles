@@ -9,10 +9,10 @@ ln -nfs ~/dotfiles/.config/byobu ~/.config/byobu
 
 mkdir ~/.config
 # nvim
-# sudo apt install -y snap
-# sudo snap install -y nvim --classic
-# ln -nfs ~/dotfiles/.config/nvim/init.vim ~/.config/nvim/init.vim
-# curl -fLo ~/.config/nvim/autoload/jetpack.vim --create-dirs https://raw.githubusercontent.com/tani/vim-jetpack/master/plugin/jetpack.vim
+sudo apt install -y snap
+sudo snap install nvim --classic
+ln -nfs ~/dotfiles/.config/nvim/ ~/.config/nvim/
+curl -fLo ~/.config/nvim/autoload/jetpack.vim --create-dirs https://raw.githubusercontent.com/tani/vim-jetpack/master/plugin/jetpack.vim
 
 # sheldon
 curl --proto '=https' -fLsS https://rossmacarthur.github.io/install/crate.sh | bash -s -- --repo rossmacarthur/sheldon --to ~/.local/bin

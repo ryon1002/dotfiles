@@ -67,6 +67,7 @@ setopt magic_equal_subst # --prefix=/usr などの = 以降も補完
 setopt noautoremoveslash # 最後のスラッシュを自動的に削除しない
 
 export TERM=xterm-256color
+export EDITOR=vim
 export XDG_CONFIG_HOME=~/.config
 export PATH=$HOME/.local/bin:$PATH
 
@@ -85,9 +86,7 @@ function load_in_zshrc(){
     fi
 }
 load_in_zshrc ~/.zshrc.local
-#load_in_zshrc ~/dotfiles/.zsh/.zshrc.prompt
 load_in_zshrc ~/dotfiles/.zsh/.zshrc.command
-
 
 eval "$(sheldon source)"
 load_in_zshrc ~/dotfiles/.zsh/.zshrc.zplugin

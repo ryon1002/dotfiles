@@ -1,3 +1,2 @@
 * sync byobu setting.
-* check snap install.
 * delete unused setting files.

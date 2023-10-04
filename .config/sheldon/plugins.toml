@@ -28,6 +28,9 @@ apply = ['fzf-install', 'fzf-source']
 github = "mollifier/anyframe"
 apply = ['source']
 
+#[plugins.zsh-vi-mode]
+#github = "jeffreytse/zsh-vi-mode"
+
 [plugins.autoenv]
 github = "Tarrasch/zsh-autoenv"
 
