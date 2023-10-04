@@ -1,2 +1,2 @@
-* sync byobu setting.
-* delete unused setting files.
+* ln error
+* sheldon slow

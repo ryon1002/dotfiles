@@ -67,7 +67,12 @@ setopt magic_equal_subst # --prefix=/usr などの = 以降も補完
 setopt noautoremoveslash # 最後のスラッシュを自動的に削除しない
 
 export TERM=xterm-256color
-export EDITOR=vim
+if which nvim > /dev/null ; then
+    export EDITOR=nvim
+else
+    export EDITOR=vim
+fi
+
 export XDG_CONFIG_HOME=~/.config
 export PATH=$HOME/.local/bin:$PATH
 
