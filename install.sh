@@ -20,8 +20,8 @@ ln -nfs ~/dotfiles/.config/sheldon ~/.config/sheldon
 curl -sS https://starship.rs/install.sh | sh -s -- --yes
 ln -nfs ~/dotfiles/.config/starship/starship.toml ~/.config/starship.toml
 
-# rtx
-curl https://rtx.pub/rtx-latest-linux-x64 > ~/.local/bin/rtx; chmod +x ~/.local/bin/rtx
+# mise
+curl https://mise.jdx.dev/install.sh | sh
 
 # byobu link
 rm -rf ~/.config/byobu

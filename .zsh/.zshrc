@@ -97,10 +97,11 @@ eval "$(sheldon source)"
 load_in_zshrc ~/dotfiles/.zsh/.zshrc.zplugin
 
 eval "$(direnv hook zsh)"
-eval "$(~/.local/bin/rtx activate zsh)"
-export RTX_DATA_DIR=$HOME/.rtx
-export RTX_CACHE_DIR=$RTX_DATA_DIR/cache
-
+eval "$(~/.local/bin/mise activate zsh)"
+export PATH="$HOME/.local/share/mise/shims:$PATH"
 eval "$(starship init zsh)"
+
+export PATH="/usr/local/cuda/bin${PATH:+:${PATH}}"
+export LD_LIBRARY_PATH="/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
 
 compinit
