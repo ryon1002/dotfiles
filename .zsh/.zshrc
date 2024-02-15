@@ -43,17 +43,10 @@ setopt hist_reduce_blanks #余計な空白を削除
 setopt complete_in_word # 単語途中からの補完を許す
 setopt always_to_end # 補完時に単語の後ろまでいく
 
-## キーバインドの設定
-bindkey -e
-bindkey "^o" menu-complete #Ctrl+oでメニュー選択
-bindkey "^q" push-line #Ctrl+qでコマンドラインスタック
-bindkey '^[[1;5D' backward-word #ctrlのワード移動
-bindkey '^[[1;5C' forward-word #ctrlのワード移動
-bindkey "^p" history-beginning-search-backward-end #サーチ機能を消さない
-bindkey "^n" history-beginning-search-forward-end  #同上
+#bindkey -e
+#bindkey "^o" menu-complete #Ctrl+oでメニュー選択
+#bindkey "^q" push-line #Ctrl+qでコマンドラインスタック
 
-#bindkey '^[[1;3D' backward-word #ctrlのワード移動
-#bindkey '^[[1;3C' forward-word #ctrlのワード移動
 ## 補完設定
 unsetopt list_types # 補完候補一覧でファイルの種別をマーク表示しない
 unsetopt auto_menu # TAB で順に補完候補を切り替えない
@@ -93,6 +86,7 @@ function load_in_zshrc(){
 load_in_zshrc ~/.zshrc.local
 load_in_zshrc ~/dotfiles/.zsh/.zshrc.command
 
+export ZVM_INIT_MODE=sourcing
 eval "$(sheldon source)"
 load_in_zshrc ~/dotfiles/.zsh/.zshrc.zplugin
 
@@ -103,5 +97,11 @@ eval "$(starship init zsh)"
 
 export PATH="/usr/local/cuda/bin${PATH:+:${PATH}}"
 export LD_LIBRARY_PATH="/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
+
+## キーバインドの設定(pluginとの競合を考えてここに置く)
+bindkey "^o" menu-complete #Ctrl+oでメニュー選択
+bindkey "^q" push-line #Ctrl+qでコマンドラインスタック
+bindkey '^[[1;5D' backward-word #ctrlのワード移動
+bindkey '^[[1;5C' forward-word #ctrlのワード移動
 
 compinit

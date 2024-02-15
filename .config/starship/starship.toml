@@ -1,4 +1,4 @@
-format = '''$directory$time$python${custom.dis_no}
+format = '''$directory$time$python$cmd_duration
 $character'''
 
 [directory]
@@ -12,9 +12,17 @@ style = "bright-yellow"
 format = '[\[$time\]]($style) '
 time_format = '%H:%M'
 
+[cmd_duration]
+style = "yellow"
+format = '[\[$duration\]]($style) '
+
 [python]
-format = '[\($virtualenv\)]($style)'
+format = '[\($virtualenv\)]($style) '
 style = "bright-green"
+
+[character]
+vimcmd_symbol = '[❮](bold blue)'
+vimcmd_visual_symbol = '[❮](bold yellow)'
 
 [custom.dis_no]
 command = "LANG=C export | grep 'DISPLAY' | awk -F: '{print $2}'"

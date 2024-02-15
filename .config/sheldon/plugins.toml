@@ -20,6 +20,10 @@ apply = ['defer']
 github = 'romkatv/zsh-defer'
 apply = ['source']
 
+[plugins.zsh-vi-mode]
+github = "jeffreytse/zsh-vi-mode"
+apply = ['source']
+
 [plugins.fzf]
 github = "junegunn/fzf"
 apply = ['fzf-install', 'fzf-source']
@@ -27,9 +31,6 @@ apply = ['fzf-install', 'fzf-source']
 [plugins.anyframe]
 github = "mollifier/anyframe"
 apply = ['source']
-
-#[plugins.zsh-vi-mode]
-#github = "jeffreytse/zsh-vi-mode"
 
 [plugins.autoenv]
 github = "Tarrasch/zsh-autoenv"
