@@ -30,7 +30,6 @@ xclip-buffer(){
     print -rn $BUFFER | xclip
     zle -M "copy to cb: ${BUFFER}"
 }
- 
 zle -N xclip-buffer
 bindkey '^b' xclip-buffer
 
@@ -42,6 +41,27 @@ run_on_tmux_panes_h(){
       command=${command}"tmux split-window -h "$line"; "
     done
     command=${command}"tmux set-window-option synchronize-panes; tmux select-layout even-horizontal"
+    eval $command
+  fi
+}
+
+run_on_tmux(){
+  local -A opts
+
+  # オプション解析
+  zparseopts -D -E -A opts d:
+
+  if [ $# -gt 0 ]; then
+    if [[ -n ${opts[(i)-d]} ]]; then
+      command="tmux new-window -t ${opts[-d]} "$1"; "
+    else
+      command="tmux new-window "$1"; "
+    fi
+
+    for cmd in "${@:2}"; do
+      command=${command}"tmux split-window "$cmd"; "
+    done
+    command=${command}"tmux select-layout even-horizontal"
     eval $command
   fi
 }

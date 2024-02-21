@@ -84,11 +84,11 @@ function load_in_zshrc(){
     fi
 }
 load_in_zshrc ~/.zshrc.local
-load_in_zshrc ~/dotfiles/.zsh/.zshrc.command
 
 export ZVM_INIT_MODE=sourcing
 eval "$(sheldon source)"
 load_in_zshrc ~/dotfiles/.zsh/.zshrc.zplugin
+load_in_zshrc ~/dotfiles/.zsh/.zshrc.command
 
 eval "$(direnv hook zsh)"
 eval "$(~/.local/bin/mise activate zsh)"
