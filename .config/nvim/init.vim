@@ -26,6 +26,9 @@ if has('mouse') "マウスを有効にする
   set mouse=a
 endif
 
+nmap <C-_> gciw
+vmap <C-_> gc
+
 " set status line
 set cmdheight=2
 

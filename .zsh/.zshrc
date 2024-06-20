@@ -32,7 +32,7 @@ autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 HISTFILE=$HOME/.zsh-history # 履歴の保存先
-HISTSIZE=100000 # メモリに展開する履歴の数
+HISTSIZE=200000 # メモリに展開する履歴の数
 SAVEHIST=100000 # 保存する履歴の数
 setopt hist_ignore_all_dups # 履歴を重複して保時しないs
 setopt hist_ignore_dups # 同じヒストリは登録しない
@@ -42,6 +42,7 @@ setopt share_history # ヒストリを共有
 setopt hist_reduce_blanks #余計な空白を削除
 setopt complete_in_word # 単語途中からの補完を許す
 setopt always_to_end # 補完時に単語の後ろまでいく
+setopt hist_ignore_space # コマンドラインの先頭がスペースで始まる場合ヒストリに追加しない
 
 #bindkey -e
 #bindkey "^o" menu-complete #Ctrl+oでメニュー選択
@@ -87,13 +88,14 @@ load_in_zshrc ~/.zshrc.local
 
 export ZVM_INIT_MODE=sourcing
 eval "$(sheldon source)"
-load_in_zshrc ~/dotfiles/.zsh/.zshrc.zplugin
 load_in_zshrc ~/dotfiles/.zsh/.zshrc.command
+load_in_zshrc ~/dotfiles/.zsh/.zshrc.zplugin
 
 eval "$(direnv hook zsh)"
 eval "$(~/.local/bin/mise activate zsh)"
 export PATH="$HOME/.local/share/mise/shims:$PATH"
 eval "$(starship init zsh)"
+#source "$HOME/.rye/env"
 
 export PATH="/usr/local/cuda/bin${PATH:+:${PATH}}"
 export LD_LIBRARY_PATH="/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"

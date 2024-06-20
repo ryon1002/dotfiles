@@ -32,6 +32,10 @@ apply = ['fzf-install', 'fzf-source']
 github = "mollifier/anyframe"
 apply = ['source']
 
+[plugins.zsh-hist]
+github = "marlonrichert/zsh-hist"
+apply = ['source']
+
 [plugins.autoenv]
 github = "Tarrasch/zsh-autoenv"
 

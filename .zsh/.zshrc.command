@@ -11,6 +11,14 @@ function extract() {
   esac
 }
 
+quote_and_escape() {
+    # echo "$1" | sed 's/"/\\"/g; s/^/"/; s/$/"/'
+  while IFS= read -r line; do
+    escaped_line="${line//\"/\\\"}"
+    printf "\"%s\"\n" "$escaped_line"
+  done
+}
+
 init_python_project(){
   if [ $# -gt 0 ]; then
     pname=$1
@@ -57,7 +65,6 @@ run_on_tmux(){
     else
       command="tmux new-window "$1"; "
     fi
-
     for cmd in "${@:2}"; do
       command=${command}"tmux split-window "$cmd"; "
     done
@@ -72,6 +79,7 @@ alias ll='ls -la --color=auto'
 alias la='ls -a --color=auto'
 alias su='su -c ${SHELL}'
 alias vim='nvim'
+alias my_pycharm='run_on_tmux -d 99 pycharm-professional'
 
 alias -g G='| grep '
 alias -g L='| less '

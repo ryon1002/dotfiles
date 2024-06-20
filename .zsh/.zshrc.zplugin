@@ -7,6 +7,17 @@ anyframe-init
 zstyle ":anyframe:selector:" use fzf
 bindkey '^r' anyframe-widget-put-history
 bindkey '^t' anyframe-widget-cdr
+
+    # | quote_and_escape \
+function anyframe-widget-delete-from-history() {
+  history -n -r 1 \
+    | anyframe-selector-auto \
+    | quote_and_escape \
+    | anyframe-action-execute " hist d"
+}
+zle -N anyframe-widget-delete-from-history
+bindkey '^d' anyframe-widget-delete-from-history
+
 function anyframe-widget-insert-filename-recursive() {
   find . \
     | anyframe-selector-auto \
@@ -17,6 +28,9 @@ bindkey '^f' anyframe-widget-insert-filename-recursive
 
 # zsh-vi-mode
 export ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
+
+# Hist
+zstyle ':hist:*' auto-format no
 
 # Others
 #zinit ice defer"2" as"command" ; zinit light zsh-users/zsh-syntax-highlighting
