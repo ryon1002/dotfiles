@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sudo apt update
-sudo apt install -y zsh vim byobu curl direnv
+sudo apt install -y zsh vim byobu curl direnv git
 ln -nfs ~/dotfiles/.vimrc ~/.vimrc
 ln -nfs ~/dotfiles/.zsh/.zshrc ~/.zshrc
 
@@ -22,6 +22,12 @@ ln -nfs ~/dotfiles/.config/starship/starship.toml ~/.config/starship.toml
 
 # mise
 curl https://mise.jdx.dev/install.sh | sh
+
+# rye
+# curl -sSf https://rye-up.com/get | sh
+
+# tpm
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # byobu link
 rm -rf ~/.config/byobu
