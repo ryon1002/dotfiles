@@ -12,6 +12,8 @@ Jetpack 'tpope/vim-commentary'
 Jetpack 'vim-scripts/ReplaceWithRegister'
 Jetpack 'itchyny/lightline.vim'
 Jetpack 'ap/vim-buftabline'
+Jetpack 'nvim-treesitter/nvim-treesitter'
+Jetpack 'bluz71/vim-moonfly-colors'
 call jetpack#end()
 
 set number
@@ -31,6 +33,7 @@ vmap <C-_> gc
 
 " set status line
 set cmdheight=2
+colorscheme moonfly
 
 highlight Visual cterm=reverse gui=reverse
 
