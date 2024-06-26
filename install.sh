@@ -29,6 +29,10 @@ curl https://mise.jdx.dev/install.sh | sh
 # tpm
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
+# rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+
 # byobu link
 rm -rf ~/.config/byobu
 ln -nfs ~/dotfiles/.config/byobu ~/.config/byobu
+ln -nfs ~/dotfiles/.config/byobu/.tmux.conf ~/.tmux.conf
