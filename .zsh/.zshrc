@@ -69,6 +69,7 @@ fi
 
 export XDG_CONFIG_HOME=~/.config
 export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/.cargo/bin:$PATH
 
 # Docker Build Kitを使う
 export DOCKER_BUILDKIT=1

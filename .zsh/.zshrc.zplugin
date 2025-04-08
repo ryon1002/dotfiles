@@ -1,5 +1,9 @@
 # Interactive filter
+# export FZF_DEFAULT_OPTS='--height 30% --reverse --inline-info --tiebreak=index --color bg+:239'
 export FZF_DEFAULT_OPTS='--height 30% --reverse --inline-info --tiebreak=index --color bg+:239'
+# export FZF_DEFAULT_OPTS_strict='--height 30% --reverse --no-sort --inline-info --tiebreak=index --color bg+:239'
+# export FZF_DEFAULT_OPTS='--height 30% --inline-info --tiebreak=index --color bg+:239'
+# export FZF_DEFAULT_OPTS='--height 30% --reverse --inline-info --color bg+:239'
 
 # Everything like search wrapper
 autoload -Uz anyframe-init
@@ -17,6 +21,17 @@ function anyframe-widget-delete-from-history() {
 }
 zle -N anyframe-widget-delete-from-history
 bindkey '^d' anyframe-widget-delete-from-history
+
+function anyframe-widget-put-history-nosort() {
+  FZF_DEFAULT_OPTS_BACK=${FZF_DEFAULT_OPTS}
+  FZF_DEFAULT_OPTS='--height 30% --reverse --no-sort --inline-info --tiebreak=index --color bg+:239'
+  history -n -r 1 \
+    | anyframe-selector-auto "'$LBUFFER" \
+    | anyframe-action-put
+  FZF_DEFAULT_OPTS=${FZF_DEFAULT_OPTS_BACK}
+}
+zle -N anyframe-widget-put-history-nosort
+bindkey '^e' anyframe-widget-put-history-nosort
 
 function anyframe-widget-insert-filename-recursive() {
   find . \
